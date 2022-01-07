@@ -1,18 +1,15 @@
 #ifndef _TIMERS_CONFIG_H_
 #define _TIMERS_CONFIG_H_
 
-/*Select the Timer:
-					1- TIMER0
-					2- TIMER1
-					3-TIMER2*/
-#define TIMER	TIMER0
 
 /*Select a TIMER Mode:
 						1-NORMAL
 						2-PWM_PHASE_CORRECT
 						3-CTC
 						4-PWM_FAST*/
-#define MODE	NORMAL
+#define MODE0	NORMAL
+#define MODE2	CTC
+
 
 /*Select the prescalar:
  	 	 	 	 	 	 1-NO_PRESCALAR
@@ -26,9 +23,13 @@
  	 	 	 	 	 	 9-EXTERNALCLK_RISING //// only for timer0
  	 	 	 	 	 	 */
 
-#define PRESCALAR	DIV_1024
+#define PRESCALAR0	DIV_1024
+#define PRESCALAR2	DIV_256
 
 /*Select OUTPUT compare register OCR0*/
-#define OUT_COMPARE_REJ	125
+#define OUT_COMPARE_0_REJ	125
+
+/*Select OUTPUT compare register OCR2*/
+#define OUT_COMPARE_2_REJ	125
 
 #endif

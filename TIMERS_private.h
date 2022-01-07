@@ -1,11 +1,6 @@
 #ifndef _TIMERS_PRIVATE_H_
 #define _TIMERS_PRIVATE_H_
 
-#define TIMER0	1
-#define TIMER1	2
-#define TIMER2	3
-
-
 #define NORMAL				1
 #define PWM_PHASE_CORRECT	2
 #define CTC					3
