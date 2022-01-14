@@ -1,10 +1,5 @@
-#include "STD_TYPES.h"
+#include "TIMERwithoutINT_APP_includes.h"
 
-#include "DIO_interface.h"
-#include "TIMERS_interface.h"
-
-#define TIMER0	0
-#define TIMER2	2
 void main(void)
 {
 	uint8_t u8_TimerReading=0;//Declare a local variable to hold the overflow flag state
