@@ -3,6 +3,9 @@
 #include "DIO_interface.h"
 #include "TIMERS_interface.h"
 
+#define TIMER0	0
+#define TIMER2	2
+
 /*Declaration of ISR0 & ISR2*/
 void ISR0(void);
 void ISR2(void);
@@ -14,12 +17,12 @@ int main(void)
 	DIO_SETpinDir(DIO_PORTB,DIO_PIN4,DIO_OUTPUT);//Set the direction of pin to be output
 	DIO_SETpinDir(DIO_PORTB,DIO_PIN5,DIO_OUTPUT);//Set the direction of pin to be output
 	SREG_Enable();//Enable the global interrupt
-	TimerInit(2);//calling timer initialization
+	TimerInit(TIMER2);//calling timer initialization
 	TIMER2_SETcompareMatchValue(125);
-	TIMER_START(2);//Start timer
+	TIMER_START(TIMER2);//Start timer
 	TIMER2_callback(&ISR2);//call timer callback
-	TimerInit(0);
-	TIMER_START(0);
+	TimerInit(TIMER0);
+	TIMER_START(TIMER0);
 	TIMER0_callback(&ISR0);
 	while(1)
 	{
