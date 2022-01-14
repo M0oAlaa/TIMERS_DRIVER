@@ -26,10 +26,5 @@
 #define PRESCALAR0	DIV_1024
 #define PRESCALAR2	DIV_256
 
-/*Select OUTPUT compare register OCR0*/
-#define OUT_COMPARE_0_REJ	125
-
-/*Select OUTPUT compare register OCR2*/
-#define OUT_COMPARE_2_REJ	125
 
 #endif

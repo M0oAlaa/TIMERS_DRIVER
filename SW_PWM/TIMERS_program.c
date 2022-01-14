@@ -26,7 +26,6 @@ if( TIMER == 0)
 	/*CTC*/
 	CLR_BIT(TIMERS_TCCR0,TCCR0_WGM00);
 	SET_BIT(TIMERS_TCCR0,TCCR0_WGM01);
-	TIMERS_OCR0=OUT_COMPARE_0_REJ;
 
 #elif MODE0 == PWM_FAST
 	/*Fast PWM*/
@@ -78,7 +77,6 @@ if( TIMER == 2)
 	/*CTC Mode*/
 	CLR_BIT(TIMERS_TCCR2,TCCR2_WGM20);
 	SET_BIT(TIMERS_TCCR2,TCCR2_WGM21);
-	TIMERS_OCR2=OUT_COMPARE_2_REJ;
 #elif MODE2 == PWM_FAST
 	/*Fast PWM Mode*/
 	SET_BIT(TIMERS_TCCR2,TCCR2_WGM20);
@@ -188,6 +186,67 @@ void TIMER_STOP(uint8_t TIMER)
 		}
 	}
 }//End of Stop function
+
+/*Implementation of Getting timer reading*/
+uint8_t TIMER_GETVALUE(uint8_t TIMER)
+{
+	uint8_t local_u8TimerValue;
+	if(TIMER == 0)
+	{
+		local_u8TimerValue=TIMERS_TCNT0;
+	}
+	else if(TIMER == 2)
+	{
+		local_u8TimerValue= TIMERS_TCNT2;
+	}
+	return local_u8TimerValue;
+}
+
+/*Implementation of checking overflow flag*/
+uint8_t TIMER_checkOverFlow(uint8_t TIMER)
+{
+	uint8_t local_u8checkoverflow;
+	if(TIMER == 0)
+	{
+		local_u8checkoverflow=GET_BIT(TIMERS_TIFR,TIFR_TOV0);
+		while(local_u8checkoverflow!=1)
+		{
+			local_u8checkoverflow=GET_BIT(TIMERS_TIFR,TIFR_TOV0);
+		}
+	}
+	else if(TIMER == 2)
+	{
+		local_u8checkoverflow=GET_BIT(TIMERS_TIFR,TIFR_TOV2);
+		while(local_u8checkoverflow!=1)
+		{
+			local_u8checkoverflow=GET_BIT(TIMERS_TIFR,TIFR_TOV2);
+		}
+	}
+	return local_u8checkoverflow;
+}
+
+/*Implementation of clearing overflow flag by set it by 1*/
+void TIMER_CLRoverflowFlag(uint8_t TIMER)
+{
+	if(TIMER == 0)
+	{
+		SET_BIT(TIMERS_TIFR,TIFR_TOV0);
+	}
+	else if(TIMER == 2)
+	{
+		SET_BIT(TIMERS_TIFR,TIFR_TOV2);
+	}
+}
+
+void TIMER0_SETcompareMatchValue(uint8_t u8_compareValue)
+{
+	TIMERS_OCR0=u8_compareValue;
+}
+
+void TIMER2_SETcompareMatchValue(uint8_t u8_compareValue)
+{
+	TIMERS_OCR2=u8_compareValue;
+}
 
 /*Implementation of timer callback function*/
 void TIMER0_callback(void(* TIMER_ISR)(void))

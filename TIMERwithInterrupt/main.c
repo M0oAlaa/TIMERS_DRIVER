@@ -15,8 +15,12 @@ int main(void)
 	DIO_SETpinDir(DIO_PORTB,DIO_PIN5,DIO_OUTPUT);//Set the direction of pin to be output
 	SREG_Enable();//Enable the global interrupt
 	TimerInit(2);//calling timer initialization
+	TIMER2_SETcompareMatchValue(125);
 	TIMER_START(2);//Start timer
 	TIMER2_callback(&ISR2);//call timer callback
+	//TimerInit(0);
+	//TIMER_START(0);
+	//TIMER0_callback(&ISR0);
 	while(1)
 	{
 
@@ -32,7 +36,7 @@ void ISR0(void)
 		gu8_counter++;
 		if(gu8_counter==16)
 		{
-			DIO_SETpinVal(DIO_PORTB,DIO_PIN4,DIO_HIGH);//LED on
+			DIO_SETpinVal(DIO_PORTB,DIO_PIN5,DIO_HIGH);//LED on
 			gu8_counter=0;
 			gu8_flag=1;
 		}
@@ -42,7 +46,7 @@ void ISR0(void)
 		gu8_counter++;
 		if(gu8_counter==10)
 		{
-			DIO_SETpinVal(DIO_PORTB,DIO_PIN4,DIO_LOW);//LED off
+			DIO_SETpinVal(DIO_PORTB,DIO_PIN5,DIO_LOW);//LED off
 			gu8_counter=0;
 			gu8_flag=0;
 		}
@@ -58,7 +62,7 @@ void ISR2(void)
 		gu8_counter++;
 		if(gu8_counter==125)
 		{
-			DIO_SETpinVal(DIO_PORTB,DIO_PIN5,DIO_HIGH);//LED on
+			DIO_SETpinVal(DIO_PORTB,DIO_PIN4,DIO_HIGH);//LED on
 			gu8_counter=0;
 			gu8_flag=1;
 		}
@@ -68,7 +72,7 @@ void ISR2(void)
 		gu8_counter++;
 		if(gu8_counter==75)
 		{
-			DIO_SETpinVal(DIO_PORTB,DIO_PIN5,DIO_LOW);//LED off
+			DIO_SETpinVal(DIO_PORTB,DIO_PIN4,DIO_LOW);//LED off
 			gu8_counter=0;
 			gu8_flag=0;
 		}
